@@ -1,7 +1,8 @@
 from random import randint
+import random as r
 import collections as c
 
-# initialize variables
+# Initialize variables
 score = 0
 mistakes = 0
 newWord = True
@@ -9,11 +10,12 @@ notFirstWord = False
 correctChars = []
 incorrectChars = []
 
-#list of words
-words = ['Gazelle', 'Automobile', 'Mathematics', 'Elephant'] 
+# List of words
+words = ['Gazelle', 'Automobile', 'ok but', 'Elephant'] 
 
+# Functions
 def chooseWord(wordList):
-    word = list(wordList[randint(0, len(wordList)-1)])      # Get a random word from the list of words and store it as a list
+    word = list(r.choice(wordList))      # Get a random word from the list of words and store it as a list
     correctChars.extend(word[0] * word.count(word[0]))      # Add first and last character from word to the list of
     correctChars.extend(word[-1] * word.count(word[-1]))    # correct characters
     if " " in word:
@@ -49,10 +51,10 @@ def isWordCompleted(word):
         return False
 
 def startGame():
-    global newWord, correct
+    global newWord, notFirstWord
     while mistakes < 10:
-        if newWord:     # Check if newWord is true
-            if notFirstWord:
+        if newWord:
+            if notFirstWord:        # Check is here to not display the message when game started
                 for char in x:
                     msg += char     # from list to string
                 print(msg + '\nWord guessed correctly! You have ' + str(score) + ' points.\n')
@@ -71,7 +73,7 @@ def startGame():
             print('\nCorrect guess! You received 1 point\n')
         
         newWord = isWordCompleted(x)
-        if newWord == False:        # Did this so the message for guessing a word correctly
+        if not newWord:             # Did this so the message for guessing a word correctly
             notFirstWord = True     # wouldn't show up when the game is started
 
     print('\nGame over! You have ' + str(score) + ' points!')
